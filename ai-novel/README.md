@@ -1,6 +1,14 @@
-# NovelCatch 榜单 → SoNovel 批量下载 · 使用说明
+# AI 小说流水线（ai-novel）
+
+中文名：**AI 小说流水线** · 目录 slug：`ai-novel`（链接友好）
 
 两步流水线：**抓榜出 JSON** → **Agent 按提示词批量下前 N 章**。
+
+| 文件 | 说明 |
+|------|------|
+| `novelcatch-rank-scraper.user.js` | 油猴：榜单页一键导出 JSON |
+| `sonovel-batch-prompt.md` | 给 Agent 的批量下载执行规格 |
+| `samples-20260731-history-top10-ch10/` | 成品样例：历史脑洞 TOP10 × 前 10 章 |
 
 ---
 
@@ -36,7 +44,7 @@
 
 ## 二、批量下载（SoNovel + Agent）
 
-**文件：** `SoNovel-批量下载提示词.md`  
+**文件：** `sonovel-batch-prompt.md`  
 把该文件整段交给执行型 Agent（Claude / Codex 等），并填好文首四个变量。
 
 ### 四个变量（必填）
@@ -85,21 +93,21 @@ OUTPUT_DIR/
 
 ## 三、示例成果目录（对照用）
 
-目录：`20260731-历史脑洞-TOP10-前10章/`
+目录：`samples-20260731-history-top10-ch10/`（历史脑洞 TOP10 · 前 10 章）
 
 这是一次完整流水线跑完后的**成品样例**，命名约定：
 
 | 片段 | 含义 |
 |------|------|
 | `20260731` | 抓取 / 下载日期 |
-| `历史脑洞` | 榜单分类（题材） |
-| `TOP10` | `BOOK_LIMIT=10`，只下榜单前 10 本 |
-| `前10章` | `CHAPTER_LIMIT=10`，每本只保留前 10 个编号章 |
+| `history` | 榜单题材（历史脑洞） |
+| `top10` | `BOOK_LIMIT=10`，只下榜单前 10 本 |
+| `ch10` | `CHAPTER_LIMIT=10`，每本只保留前 10 个编号章 |
 
 ### 目录里有什么
 
 ```text
-20260731-历史脑洞-TOP10-前10章/
+samples-20260731-history-top10-ch10/
   全民县令：我看广告无限刷资源(极品花生酱).txt
   大唐：我有一间诸天杂货铺(夜的旋律).txt
   大明死囚教嘉靖修仙怎练成体修？(喜欢猫的校长).txt
@@ -118,7 +126,7 @@ OUTPUT_DIR/
 
 ### 和「规范成功目录」的差异
 
-按当前 `SoNovel-批量下载提示词.md`，新任务更推荐：
+按当前 `sonovel-batch-prompt.md`，新任务更推荐：
 
 ```text
 OUTPUT_DIR/
@@ -135,14 +143,14 @@ OUTPUT_DIR/
 
 ### 新建任务时怎么命名 OUTPUT_DIR
 
-对齐本示例：
+推荐英文 slug（链接、路径都干净）：
 
 ```text
-YYYYMMDD-题材-TOP{N}-前{M}章
-# 例：20260803-历史古代-TOP10-前5章
+YYYYMMDD-<topic>-top{N}-ch{M}
+# 例：20260803-history-top10-ch5
 ```
 
-对应变量：`BOOK_LIMIT=N`，`CHAPTER_LIMIT=M`。
+对应变量：`BOOK_LIMIT=N`，`CHAPTER_LIMIT=M`。中文题材名可写在 README / 笔记里，不必塞进路径。
 
 ---
 
@@ -151,16 +159,16 @@ YYYYMMDD-题材-TOP{N}-前{M}章
 ```text
 1. 油猴打开 novelcatch 榜单 → 点「下载 JSON」
 2. 把 JSON 放到本机（例如桌面或项目目录）
-3. 复制「SoNovel-批量下载提示词.md」全文给 Agent
-4. 改四个变量，例如（对照「历史脑洞 TOP10 前10章」样例）：
+3. 复制 sonovel-batch-prompt.md 全文给 Agent
+4. 改四个变量，例如（对照 history top10 ch10 样例）：
 
-   INPUT_JSON="/Users/你/Downloads/20260731-男频阅读榜-历史脑洞.json"
-   OUTPUT_DIR=".../02-项目库/AI 小说/20260803-历史脑洞-TOP10-前10章"
+   INPUT_JSON="/Users/你/Downloads/20260731-m-read-history.json"
+   OUTPUT_DIR=".../ai-novel/20260803-history-top10-ch10"
    CHAPTER_LIMIT=10
    BOOK_LIMIT=10
 
 5. 让 Agent 跑到结束，核对 manifest 里 success / failed / skipped
-6. 成品形态可与 20260731-历史脑洞-TOP10-前10章/ 对照
+6. 成品形态可与 samples-20260731-history-top10-ch10/ 对照
 ```
 
 ---
@@ -182,7 +190,6 @@ YYYYMMDD-题材-TOP{N}-前{M}章
 | 文件 / 目录 | 作用 |
 |-------------|------|
 | `novelcatch-rank-scraper.user.js` | 榜单页一键导出 JSON |
-| `SoNovel-批量下载提示词.md` | 给 Agent 的完整执行规格（勿当人类长教程读） |
-| `20260731-历史脑洞-TOP10-前10章/` | 成品样例：TOP10 × 前 10 章 TXT |
-| `20260731-历史古代前5章/` | 小样：3 本 × 前 5 章 |
-| 本说明 | 人读的最短操作路径 |
+| `sonovel-batch-prompt.md` | 给 Agent 的完整执行规格（勿当人类长教程读） |
+| `samples-20260731-history-top10-ch10/` | 成品样例：历史脑洞 TOP10 × 前 10 章 TXT |
+| `README.md` | 人读的最短操作路径 |
