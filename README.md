@@ -1,3 +1,5 @@
+
+
 # yuppy-prompts
 
 个人整理的 AI 提示词（系统提示 / 元提示）仓库，按主题分目录存放，便于复制到对话或工作流中使用。
@@ -9,6 +11,7 @@
 | [`ai-novel/`](ai-novel/) | **AI 小说流水线**：NovelCatch 抓榜 + SoNovel 批量抽样下载 |
 | [`suno/`](suno/) | 面向 Suno、Udio 等 AI 音乐生成场景的提示词 |
 | [`gpt-image-2/`](gpt-image-2/) | 面向 GPT Image 生成与图文设计场景的提示词 |
+| [`prompt/`](prompt/) | 情感赛道等内容创作提示词模板 |
 
 ## `suno/` 文件一览
 
